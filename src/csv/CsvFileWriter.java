@@ -15,7 +15,7 @@ public class CsvFileWriter {
 	private static final String NEW_LINE_SEPARATOR = "\n";
 	
 	//CSV file header
-	private static final String FILE_HEADER = "ID,Name,Age,CountryCode,Salary";
+	//private static final String FILE_HEADER = "ID,Name,Age,CountryCode,Salary";
 
 	public static void writeCsvFile(String fileName) {
 		
@@ -42,10 +42,10 @@ public class CsvFileWriter {
 			fileWriter = new FileWriter(fileName);
 
 			//Write the CSV file header
-			fileWriter.append(FILE_HEADER.toString());
+			//fileWriter.append(FILE_HEADER.toString());
 			
 			//Add a new line separator after the header
-			fileWriter.append(NEW_LINE_SEPARATOR);
+			//fileWriter.append(NEW_LINE_SEPARATOR);
 			
 			//Write a new student object list to the CSV file
 			/*
@@ -81,7 +81,7 @@ public class CsvFileWriter {
 				fileWriter.append(COMMA_DELIMITER);
 				fileWriter.append(String.valueOf(rand.nextInt((70 - 10) + 1) + 10));
 				fileWriter.append(COMMA_DELIMITER);
-				fileWriter.append(String.valueOf(rand.nextInt((10 - 1) + 1) + 11));
+				fileWriter.append(String.valueOf(rand.nextInt((10 - 1) + 1) + 1));
 				fileWriter.append(COMMA_DELIMITER);
 				fileWriter.append(String.valueOf(rand.nextFloat() * (10000-100) + 100));
 				fileWriter.append(NEW_LINE_SEPARATOR);
