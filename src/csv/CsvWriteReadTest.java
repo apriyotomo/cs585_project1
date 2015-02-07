@@ -7,7 +7,7 @@ public class CsvWriteReadTest {
 	 */
 	public static void main(String[] args) {
 		
-		String fileName = System.getProperty("user.home")+"/transaction1.csv";
+		String fileName = System.getProperty("user.home")+"/transaction.txt";
 		
 		System.out.println("Write CSV file:");
 		WriteTransactionCsv.writeCsvFile(fileName);

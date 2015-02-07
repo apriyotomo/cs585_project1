@@ -15,7 +15,7 @@ public class WriteTransactionCsv {
 	private static final String NEW_LINE_SEPARATOR = "\n";
 	
 	//CSV file header
-	private static final String FILE_HEADER = "TransID,CustID,TransTotal,TransNumItems,TransDesc";
+	//private static final String FILE_HEADER = "TransID,CustID,TransTotal,TransNumItems,TransDesc";
 
 	public static void writeCsvFile(String fileName) {
 		
@@ -26,15 +26,15 @@ public class WriteTransactionCsv {
 			fileWriter = new FileWriter(fileName);
 
 			//Write the CSV file header
-			fileWriter.append(FILE_HEADER.toString());
+			//fileWriter.append(FILE_HEADER.toString());
 			
 			//Add a new line separator after the header
-			fileWriter.append(NEW_LINE_SEPARATOR);
+			//fileWriter.append(NEW_LINE_SEPARATOR);
 			
 			//Write a new trx object list to the CSV file
 			
 			
-			for(int i = 1 ; i <= 50; i++)
+			for(int i = 1 ; i <= 5000000; i++)
 			{
 				Random rand = new Random();
 				fileWriter.append(String.valueOf(i));
