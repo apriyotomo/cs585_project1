@@ -11,52 +11,55 @@ import org.apache.hadoop.util.*;
 public class CustomerTrx {
     
     public static class Map extends MapReduceBase implements Mapper<LongWritable, Text, Text, Text> {
-		private final static IntWritable one = new IntWritable(1);
-		private Text word = new Text();
-		public void map(LongWritable key, Text value, OutputCollector<Text, Text> output, Reporter reporter) throws IOException {
-			String line = value.toString();
+	private final static IntWritable one = new IntWritable(1);
+	private Text word = new Text();
+	public void map(LongWritable key, Text value, OutputCollector<Text, Text> output, Reporter reporter) throws IOException {
+	    String line = value.toString();
 
-			int i = 0;
-			StringTokenizer tokenizer = new StringTokenizer(line, ",");
-			String[] temp = new String[tokenizer.countTokens()];
-			
-			while(tokenizer.hasMoreTokens()){
-				temp[i++] = tokenizer.nextToken().toString();
-			}
+	    int i = 0;
+	    //String[] temp = line.split(",");
+	    StringTokenizer tokenizer = new StringTokenizer(line, ",");
+	    String[] temp = new String[tokenizer.countTokens()];
+	    
+	    while(tokenizer.hasMoreTokens()){
+		temp[i++] = tokenizer.nextToken().toString();
+	    }
 
-			word.set(temp[1]); //custID
-			String outValue = "1,"+temp[2]+""; //string of no of trx and trx amount
-			Text outWord = new Text();
-			outWord.set(outValue);
-			output.collect(word, outWord);
-			
-		}
+	    word.set(temp[1]);
+	    String outValue = temp[2]+"";
+	    //float trans = Float.parseFloat(outValue);
+	    Text outWord = new Text();
+	    outWord.set(outValue);
+	    output.collect(word, outWord);
+		/*
+	    if(Integer.parseInt(temp[3])>=2 && Integer.parseInt(temp[3])<=6){
+		word.set(temp[0]);
+		String outValue = temp[1]+","+temp[2]+","+temp[3]+","+temp[4];
+		Text outWord = new Text();
+		outWord.set(outValue);
+		output.collect(word, outWord);
+	    }*/
+	    //word.set(temp[3]);
+	    
+	    
+	}
     }
 
     public static class Reduce extends MapReduceBase implements Reducer<Text, Text, Text, Text> {
-		public void reduce(Text key, Iterator<Text> values, OutputCollector<Text, Text> output, Reporter reporter) throws IOException {
-			float sum = 0;
-			int count = 0;
-			
-			while (values.hasNext()) {
-				String line = values.next().toString();
-				StringTokenizer tokenizer = new StringTokenizer(line, ",");
-				int i = 0;
-				String[] temp = {"0","0"};
-				while(tokenizer.hasMoreTokens()){
-					temp[i++] = tokenizer.nextToken().toString();
-				}
-				
-				float trans = Float.parseFloat(temp[1]); //trx amount
-				int trans_count = Integer.parseInt(temp[0]); //number of trx
-				sum += trans;
-				count += trans_count;
-			}
-			String trx = Integer.toString(count) + "," + Float.toString(sum);
-			Text outWord = new Text();
-			outWord.set(trx);
-			output.collect(key, outWord);
-		}
+	public void reduce(Text key, Iterator<Text> values, OutputCollector<Text, Text> output, Reporter reporter) throws IOException {
+	    float sum = 0;
+	    int count = 0;
+	    while (values.hasNext()) {
+		String s = values.next().toString();
+		float trans = Float.parseFloat(s);
+		sum += trans;
+		count++;
+	    }
+	    String trx = Float.toString(sum) + "," + Integer.toString(count);
+	    Text outWord = new Text();
+	    outWord.set(trx);
+	    output.collect(key, outWord);
+	}
     }
 
     public static void main(String[] args) throws Exception {

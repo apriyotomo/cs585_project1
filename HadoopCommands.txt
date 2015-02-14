@@ -1,0 +1,15 @@
+hadoop fs -rmr /home/ubuntu/Workspace/hadoop-1.1.0/hadoop-data/output
+
+javac -classpath /home/ubuntu/Workspace/hadoop-1.1.0/hadoop-core-1.1.0.jar -d /home/ubuntu/Workspace/project1/query3/Join_class /home/ubuntu/Workspace/project1/query3/*.java
+
+jar -cvf /home/ubuntu/Workspace/project1/query3/Join.jar -C /home/ubuntu/Workspace/project1/query3/Join_class/ .
+
+hadoop jar /home/ubuntu/Workspace/project1/query3/Join.jar org.eric.Join /home/ubuntu/Workspace/hadoop-1.1.0/hadoop-data/Customer /home/ubuntu/Workspace/hadoop-1.1.0/hadoop-data/Transaction /home/ubuntu/Workspace/hadoop-1.1.0/hadoop-data/output
+
+
+
+start-all.sh
+
+stop-all.sh
+
+sudo mount -t vboxsf cs585 /mnt/SharedPoint
